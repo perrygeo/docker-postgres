@@ -1,12 +1,21 @@
 # Docker images for Postgres
 
-PostgreSQL 11.1 database with some useful extensions.
+[![Build Status](https://travis-ci.com/perrygeo/docker-postgres.svg?branch=master)](https://travis-ci.com/perrygeo/docker-postgres)
 
-Based on [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) ([`python:3.6-slim-stretch`](https://github.com/docker-library/python/blob/master/3.6/stretch/slim/Dockerfile), `debian:stretch-slim`).
+My take on a Dockerized PostgreSQL 11.1 database with some useful extensions
+including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
 
-Uses the `docker_entrypoint.sh` script from the postgres docker image, thus most of the documentation applies to this project.
+The primary goal is to quickly launch a local postgres
+server for local development, one that has the latest versions built from source.
 
-The following versions built from source:
+Futures goals include launching this as a production grade
+Postgres deployment on AWS and Digitial Ocean. Looking at 
+projects like [Patroni](https://github.com/zalando/patroni) to provide some ideas but it's not there yet.
+
+Based on [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base),
+a descendent of [`python:3.6-slim-stretch`](https://github.com/docker-library/python/blob/master/3.6/stretch/slim/Dockerfile), `debian:stretch-slim`).
+
+The following package versions are built from source:
 
 ```
 POSTGIS 2.5.1
@@ -16,7 +25,11 @@ PROTOBUF_C 1.3.1
 TIMESCALE 1.1.0
 ```
 
-## Using the image directly
+Uses the `docker_entrypoint.sh` script from the offical postgres image
+thus most of the best practices described in [the documentation](https://hub.docker.com/_/postgres/)
+also apply to this project.
+
+## Using the image locally
 
 ```
 make
@@ -52,6 +65,10 @@ You can use `docker exec -it postgres-server /bin/bash` to get an interactive sh
 ## Extending this image
 
 Probably don't. I think you'd have better luck copying this `Dockerfile` and modifying it according to your needs.
+
+## Using it in production
+
+Not yet.
 
 ## License
 

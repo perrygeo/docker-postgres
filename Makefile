@@ -14,6 +14,19 @@ shell: build
 		perrygeo/postgres:$(TAG) \
 		/bin/bash
 
+test:
+	rm -rf __test__pgdata || echo ""
+	docker run --rm \
+		--name postgres-test-server \
+		--volume `pwd`/__test__pgdata:/var/lib/pgsql/data \
+		-e POSTGRES_PASSWORD=password \
+		-e POSTGRES_USER=postgres \
+		-e PGDATA=/var/lib/pgsql/data/pgdata11 \
+		-e POSTGRES_DB=db \
+		-p 9432:5432 \
+		perrygeo/postgres:$(TAG) \
+		postgres --version
+
 start-db: build
 	docker kill postgres-server || echo "no container to kill"
 	mkdir pgdata || echo "pgdata already exists"
@@ -22,7 +35,7 @@ start-db: build
 	   	-d \
 		--name postgres-server \
 		--volume `pwd`/pgdata:/var/lib/pgsql/data \
-		--volume ${PWD}/data:/mnt/data \
+		--volume ${PWD}/mnt_data:/mnt/data \
 		-e POSTGRES_PASSWORD=password \
 		-e POSTGRES_USER=postgres \
 		-e PGDATA=/var/lib/pgsql/data/pgdata11 \
