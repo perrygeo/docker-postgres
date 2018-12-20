@@ -1,0 +1,5 @@
+pgdata
+data
+*.swp
+_*
+.DS_Store
