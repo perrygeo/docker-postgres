@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/perrygeo/docker-postgres.svg?branch=master)](https://travis-ci.com/perrygeo/docker-postgres)
 
-[`perrygeo/gdal-base` on Dockerhub](https://hub.docker.com/r/perrygeo/gdal-base)
+Check out [`perrygeo/postgres` on Dockerhub](https://hub.docker.com/r/perrygeo/postgres)
 
 This is my take on a Dockerized PostgreSQL 11.1 database with some useful extensions
 including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
