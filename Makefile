@@ -2,9 +2,6 @@
 SHELL = /bin/bash
 TAG = latest
 
-# relative to pwd
-TESTDIR = _pgdata_test
-
 all: start-db
 
 build:
@@ -18,20 +15,11 @@ shell: build
 		/bin/bash
 
 test:
-	rm -rf $(TESTDIR) || echo "skip"
-	mkdir $(TESTDIR)
-	chmod 777 $(TESTDIR)
 	docker run --rm \
 		--name postgres-test-server \
-		--volume `pwd`/$(TESTDIR):/var/lib/pgsql/data \
-		-e POSTGRES_PASSWORD=password \
-		-e POSTGRES_USER=postgres \
-		-e PGDATA=/var/lib/pgsql/data/pgdata11 \
-		-e POSTGRES_DB=db \
-		-p 9432:5432 \
+		-e PGDATA=/tmp/pgdata \
 		perrygeo/postgres:$(TAG) \
-		postgres --version
-	rm -rf $(TESTDIR)
+		bash -c 'postgres --version'
 
 start-db: build
 	docker kill postgres-server || echo "no container to kill"
