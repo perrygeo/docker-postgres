@@ -24,7 +24,7 @@ python:3.6-slim-stretch
 perrygeo/gdal-base:latest
       |
       V
-perrygeo/docker-postgres
+perrygeo/postgres:latest
 ```
 See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for details on the C shared libraries available,
 notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
