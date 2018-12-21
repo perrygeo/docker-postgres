@@ -10,7 +10,7 @@ server for local development, one that has the latest versions built from source
 
 Futures goals include launching this as a production grade
 Postgres deployment on AWS and Digitial Ocean. Looking at 
-projects like [Patroni](https://github.com/zalando/patroni) to provide some ideas but it's not there yet.
+projects like [Patroni](https://github.com/zalando/patroni) to provide some ideas.
 
 Based on [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base),
 a descendent of [`python:3.6-slim-stretch`](https://github.com/docker-library/python/blob/master/3.6/stretch/slim/Dockerfile), `debian:stretch-slim`).
