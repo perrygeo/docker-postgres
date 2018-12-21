@@ -20,7 +20,7 @@ test:
 		--name postgres-test-server \
 		-e PGDATA=/tmp/pgdata \
 		$(REPO):$(TAG) \
-		bash -c 'postgres --version'
+		postgres --version
 
 start-db: build
 	docker kill postgres-server || echo "no container to kill"
