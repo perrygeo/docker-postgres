@@ -3,9 +3,6 @@ services:
 
 env:
   global:
-    # The following secret must be set
-    # DOCKER_PASS
-    - DOCKER_USER=perrygeo
     - REPO=perrygeo/postgres  # Dockerhub repository name, not github
     - COMMIT=${TRAVIS_COMMIT::8}
     - DATE=`date +%Y%m%d`
