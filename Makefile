@@ -9,7 +9,7 @@ build:
 	docker build --tag $(REPO):$(TAG) --file Dockerfile .
 	docker tag $(REPO):$(TAG) $(REPO):latest
 
-shell: build
+shell:
 	docker run \
 		--volume $(shell pwd)/:/app \
 		--rm -it --tty \
