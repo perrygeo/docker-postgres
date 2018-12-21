@@ -6,14 +6,27 @@ My take on a Dockerized PostgreSQL 11.1 database with some useful extensions
 including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
 
 The primary goal is to quickly launch a local postgres
-server for local development, one that has the latest versions built from source.
+server for development, one that has the latest versions built from source.
 
 Futures goals include launching this as a production grade
 Postgres deployment on AWS and Digitial Ocean. Looking at 
 projects like [Patroni](https://github.com/zalando/patroni) to provide some ideas.
 
-Based on [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base),
-a descendent of [`python:3.6-slim-stretch`](https://github.com/docker-library/python/blob/master/3.6/stretch/slim/Dockerfile), `debian:stretch-slim`).
+The family tree
+```
+debian:stretch-slim
+      |
+      v
+python:3.6-slim-stretch
+      |
+      v
+perrygeo/gdal-base:latest
+      |
+      V
+perrygeo/docker-postgres
+```
+See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for details on the C shared libraries available,
+notably GDAL, proj and GEOS for use in PostGIS.
 
 The following package versions are built from source:
 
