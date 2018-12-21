@@ -2,15 +2,16 @@
 
 [![Build Status](https://travis-ci.com/perrygeo/docker-postgres.svg?branch=master)](https://travis-ci.com/perrygeo/docker-postgres)
 
-My take on a Dockerized PostgreSQL 11.1 database with some useful extensions
-including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
+[`perrygeo/gdal-base` on Dockerhub](https://hub.docker.com/r/perrygeo/gdal-base)
 
+This is my take on a Dockerized PostgreSQL 11.1 database with some useful extensions
+including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
 The primary goal is to quickly launch a local postgres
-server for development, one that has the latest versions built from source.
+server for development, one with reasonablly current versions and built from source.
 
 Futures goals include launching this as a production grade
-Postgres deployment on AWS and Digitial Ocean. Looking at 
-projects like [Patroni](https://github.com/zalando/patroni) to provide some ideas.
+Postgres deployment on AWS and Digitial Ocean. Looking at
+projects like [Patroni](https://github.com/zalando/patroni) for inspiration.
 
 The family tree
 ```
@@ -26,9 +27,7 @@ perrygeo/gdal-base:latest
 perrygeo/docker-postgres
 ```
 See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for details on the C shared libraries available,
-notably GDAL, proj and GEOS for use in PostGIS.
-
-The following package versions are built from source:
+notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
 
 ```
 POSTGIS 2.5.1
