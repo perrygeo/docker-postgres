@@ -34,7 +34,7 @@ POSTGIS 2.5.1
 POSTGRES 11.1
 PROTOBUF 3.6.1
 PROTOBUF_C 1.3.1
-TIMESCALE 1.1.0
+TIMESCALE 1.1.1
 ```
 
 Uses the `docker_entrypoint.sh` script from the offical postgres image
