@@ -3,3 +3,4 @@ data
 *.swp
 _*
 .DS_Store
+mnt_data
