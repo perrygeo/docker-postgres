@@ -1,6 +1,7 @@
 pgdata
 data
+mnt_data
+logs
 *.swp
 _*
 .DS_Store
-mnt_data

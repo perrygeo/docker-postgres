@@ -9,9 +9,11 @@ TAG=latest
 case $1 in
 
 prep)
-    docker pull ${DOCKER_REPO}:${TAG}
+    # docker pull ${DOCKER_REPO}:${TAG}
+    make
     mkdir pgdata || :
     mkdir mnt_data || :
+    mkdir logs || :
     ;;
 
 start)
@@ -20,8 +22,9 @@ start)
     docker run --rm -d --name $NAME \
       --volume `pwd`/pgdata:/var/lib/pgsql/data \
       --volume `pwd`/mnt_data:/mnt/data \
+      --volume `pwd`/logs:/var/log/postgres \
       --volume `pwd`/pg_hba.conf:/etc/postgresql/pg_hba.conf \
-      -e POSTGRES_PASSWORD=jXX9nLZUy2mB \
+      -e POSTGRES_PASSWORD=password \
       -e POSTGRES_USER=postgres \
       -e PGDATA=/var/lib/pgsql/data/pgdata11 \
       -e POSTGRES_INITDB_ARGS="--data-checksums --encoding=UTF8" \
