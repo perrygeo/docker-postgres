@@ -48,10 +48,11 @@ RUN tar -xzf postgis-${POSTGIS_VERSION}.tar.gz && \
     ./configure --with-protobufdir=/usr/local --prefix=/usr/local && \
     make -j${CPUS} && make install
 
+RUN rm -rf /usr/local/lib/libcurl.so.4
 RUN tar -xzf timescaledb-${TIMESCALE_VERSION}.tar.gz && \
     cd timescaledb && \
     ./bootstrap && \
-    cd build && make && make install
+    cd build && make -j${CPUS} && make install
 
 # Final
 FROM python:3.6-slim-stretch as final
