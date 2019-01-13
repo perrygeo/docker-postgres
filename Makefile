@@ -3,7 +3,7 @@ SHELL = /bin/bash
 TAG ?= latest
 REPO ?= perrygeo/postgres
 
-all: start-db
+all: build test
 
 build:
 	docker build --tag $(REPO):$(TAG) --file Dockerfile .
