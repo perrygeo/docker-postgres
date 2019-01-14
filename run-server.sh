@@ -10,7 +10,7 @@ case $1 in
 
 prep)
     # docker pull ${DOCKER_REPO}:${TAG}
-    make
+    make build
     mkdir pgdata || :
     mkdir mnt_data || :
     mkdir logs || :

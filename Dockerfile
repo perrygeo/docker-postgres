@@ -54,6 +54,18 @@ RUN tar -xzf timescaledb-${TIMESCALE_VERSION}.tar.gz && \
     ./bootstrap && \
     cd build && make -j${CPUS} && make install
 
+# contrib extensions
+RUN cd postgresql-${POSTGRES_VERSION}/contrib && \
+    make all -j${CPUS} && make install
+
+ENV PGEXTWLIST_VERSION 1.7
+RUN wget -q -O pgextwlist-${PGEXTWLIST_VERSION}.tar.gz \
+      https://github.com/dimitri/pgextwlist/archive/v${PGEXTWLIST_VERSION}.tar.gz
+RUN tar -xzf pgextwlist-${PGEXTWLIST_VERSION}.tar.gz && \
+    cd pgextwlist-${PGEXTWLIST_VERSION} && \
+    make -j${CPUS} && make install && \
+    export pkg=$(pg_config --pkglibdir) && mkdir $pkg/plugins && cp $pkg/pgextwlist.so $pkg/plugins
+
 # Final
 FROM python:3.6-slim-stretch as final
 # Runtime requirements for dev libraries used above
