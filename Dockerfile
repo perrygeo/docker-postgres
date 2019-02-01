@@ -10,7 +10,7 @@ ENV POSTGRES_VERSION 11.1
 ENV PROTOBUF_VERSION 3.6.1
 ENV PROTOBUF_C_VERSION 1.3.1
 ENV POSTGIS_VERSION 2.5.1
-ENV TIMESCALE_VERSION 1.1.1
+ENV TIMESCALE_VERSION 1.2.0
 
 RUN wget -q https://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2
 RUN wget -q https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
