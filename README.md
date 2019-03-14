@@ -30,11 +30,11 @@ See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for deta
 notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
 
 ```
-POSTGIS 2.5.1
-POSTGRES 11.1
-PROTOBUF 3.6.1
-PROTOBUF_C 1.3.1
-TIMESCALE 1.1.1
+POSTGRES_VERSION 11.2
+PROTOBUF_VERSION 3.6.1
+PROTOBUF_C_VERSION 1.3.1
+POSTGIS_VERSION 2.5.2
+TIMESCALE_VERSION 1.2.2
 ```
 
 Uses the `docker_entrypoint.sh` script from the offical postgres image
