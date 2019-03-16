@@ -70,5 +70,7 @@ ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 RUN useradd -ms /bin/bash postgres
 COPY postgresql.conf /etc/postgresql/postgresql.conf
 RUN chown postgres /etc/postgresql/postgresql.conf
+RUN mkdir -p /var/lib/pgsql/data
+RUN chown postgres:postgres /var/lib/pgsql/data
 USER postgres
 EXPOSE 5432

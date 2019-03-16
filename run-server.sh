@@ -19,7 +19,7 @@ prep)
 start)
     $0 stop || :
     $0 prep
-    docker run --rm -d --name $NAME \
+    docker run --rm --name $NAME \
       --volume `pwd`/pgdata:/var/lib/pgsql/data \
       --volume `pwd`/mnt_data:/mnt/data \
       --volume `pwd`/logs:/var/log/postgres \
