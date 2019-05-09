@@ -6,17 +6,17 @@ FROM perrygeo/gdal-base:latest as builder
 
 WORKDIR /tmp
 
-ENV POSTGRES_VERSION 11.2
+ENV POSTGRES_VERSION 11.3
 ENV PROTOBUF_VERSION 3.6.1
 ENV PROTOBUF_C_VERSION 1.3.1
 ENV POSTGIS_VERSION 2.5.2
-ENV TIMESCALE_VERSION 1.2.2
+ENV TIMESCALE_VERSION 1.3.0
 
 RUN wget -q https://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2
 RUN wget -q https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
 RUN wget -q https://github.com/protobuf-c/protobuf-c/releases/download/v${PROTOBUF_C_VERSION}/protobuf-c-${PROTOBUF_C_VERSION}.tar.gz
 RUN wget -q https://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz
-RUN wget -q https://github.com/timescale/timescaledb/releases/download/${TIMESCALE_VERSION}/timescaledb-${TIMESCALE_VERSION}.tar.gz
+RUN wget -q https://github.com/timescale/timescaledb/releases/download/${TIMESCALE_VERSION}/timescaledb-${TIMESCALE_VERSION}.tar.lzma
 
 RUN apt-get install -y --no-install-recommends \
         autoconf automake libreadline-dev zlib1g-dev libxml2-dev llvm-4.0-dev clang-4.0 \
@@ -49,7 +49,7 @@ RUN tar -xzf postgis-${POSTGIS_VERSION}.tar.gz && \
     make -j${CPUS} && make install
 
 RUN rm -rf /usr/local/lib/libcurl.so.4
-RUN tar -xzf timescaledb-${TIMESCALE_VERSION}.tar.gz && \
+RUN tar --lzma -xf timescaledb-${TIMESCALE_VERSION}.tar.lzma && \
     cd timescaledb && \
     ./bootstrap && \
     cd build && make -j${CPUS} && make install
