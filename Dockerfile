@@ -6,18 +6,21 @@ FROM perrygeo/gdal-base:latest as builder
 
 WORKDIR /tmp
 
-ENV POSTGRES_VERSION 11.3
+ENV POSTGRES_VERSION 12.0
 ENV PROTOBUF_VERSION 3.6.1
 ENV PROTOBUF_C_VERSION 1.3.1
-ENV POSTGIS_VERSION 2.5.2
-ENV TIMESCALE_VERSION 1.3.0
+ENV POSTGIS_VERSION 3.0.0
+
+# Waiting on Timescale pg12 compatibility
+# ENV TIMESCALE_VERSION 1.3.0
 
 RUN wget -q https://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2
 RUN wget -q https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protobuf-cpp-${PROTOBUF_VERSION}.tar.gz
 RUN wget -q https://github.com/protobuf-c/protobuf-c/releases/download/v${PROTOBUF_C_VERSION}/protobuf-c-${PROTOBUF_C_VERSION}.tar.gz
 RUN wget -q https://download.osgeo.org/postgis/source/postgis-${POSTGIS_VERSION}.tar.gz
-RUN wget -q https://github.com/timescale/timescaledb/releases/download/${TIMESCALE_VERSION}/timescaledb-${TIMESCALE_VERSION}.tar.lzma
+# RUN wget -q https://github.com/timescale/timescaledb/releases/download/${TIMESCALE_VERSION}/timescaledb-${TIMESCALE_VERSION}.tar.lzma
 
+RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
         autoconf automake libreadline-dev zlib1g-dev libxml2-dev llvm-4.0-dev clang-4.0 \
         libjson-c-dev xsltproc docbook-xsl docbook-mathml libssl-dev
@@ -48,11 +51,11 @@ RUN tar -xzf postgis-${POSTGIS_VERSION}.tar.gz && \
     ./configure --with-protobufdir=/usr/local --prefix=/usr/local && \
     make -j${CPUS} && make install
 
-RUN rm -rf /usr/local/lib/libcurl.so.4
-RUN tar --lzma -xf timescaledb-${TIMESCALE_VERSION}.tar.lzma && \
-    cd timescaledb && \
-    ./bootstrap && \
-    cd build && make -j${CPUS} && make install
+# RUN rm -rf /usr/local/lib/libcurl.so.4
+# RUN tar --lzma -xf timescaledb-${TIMESCALE_VERSION}.tar.lzma && \
+#     cd timescaledb && \
+#     ./bootstrap && \
+#     cd build && make -j${CPUS} && make install
 
 # Final
 FROM python:3.6-slim-stretch as final
