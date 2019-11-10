@@ -4,7 +4,7 @@
 
 Check out [`perrygeo/postgres` on Dockerhub](https://hub.docker.com/r/perrygeo/postgres)
 
-This is my take on a Dockerized PostgreSQL 11.1 database with some useful extensions
+This is my take on a Dockerized PostgreSQL 12 database with some useful extensions
 including [PostGIS](https://www.postgis.net/) and [TimescaleDB](https://www.timescale.com/).
 The primary goal is to quickly launch a local postgres
 server for development, one with reasonablly current versions and built from source.
@@ -30,11 +30,11 @@ See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for deta
 notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
 
 ```
-POSTGRES_VERSION 11.2
+POSTGRES_VERSION 12.0
 PROTOBUF_VERSION 3.6.1
 PROTOBUF_C_VERSION 1.3.1
-POSTGIS_VERSION 2.5.2
-TIMESCALE_VERSION 1.2.2
+POSTGIS_VERSION 3.0.0
+# TIMESCALE_VERSION 1.2.2  # Not included presently, waiting on pg12 support
 ```
 
 Uses the `docker_entrypoint.sh` script from the offical postgres image
