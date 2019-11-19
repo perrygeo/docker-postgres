@@ -30,7 +30,7 @@ See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for deta
 notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
 
 ```
-POSTGRES_VERSION 12.0
+POSTGRES_VERSION 12.1
 PROTOBUF_VERSION 3.6.1
 PROTOBUF_C_VERSION 1.3.1
 POSTGIS_VERSION 3.0.0
