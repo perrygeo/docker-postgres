@@ -18,7 +18,7 @@ The family tree
 debian:buster-slim
       |
       v
-python:3.6-slim-buster
+python:3.8-slim-buster
       |
       v
 perrygeo/gdal-base:latest
