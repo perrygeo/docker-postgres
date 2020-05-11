@@ -15,10 +15,10 @@ projects like [Patroni](https://github.com/zalando/patroni) for inspiration.
 
 The family tree
 ```
-debian:stretch-slim
+debian:buster-slim
       |
       v
-python:3.6-slim-stretch
+python:3.6-slim-buster
       |
       v
 perrygeo/gdal-base:latest
@@ -30,11 +30,11 @@ See [`perrygeo/gdal-base`](https://hub.docker.com/r/perrygeo/gdal-base) for deta
 notably GDAL, proj and GEOS for use in PostGIS. The following package versions are built from source:
 
 ```
-POSTGRES_VERSION 12.1
+POSTGRES_VERSION 12.2
 PROTOBUF_VERSION 3.6.1
 PROTOBUF_C_VERSION 1.3.1
-POSTGIS_VERSION 3.0.0
-# TIMESCALE_VERSION 1.2.2  # Not included presently, waiting on pg12 support
+POSTGIS_VERSION 3.1.0alpha
+# TIMESCALE_VERSION 1.7.0  # Not included presently, waiting on pg12 support
 ```
 
 Uses the `docker_entrypoint.sh` script from the offical postgres image
