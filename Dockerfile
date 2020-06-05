@@ -6,7 +6,7 @@ FROM perrygeo/gdal-base:latest as builder
 
 WORKDIR /tmp
 
-ENV POSTGRES_VERSION 12.2
+ENV POSTGRES_VERSION 12.3
 ENV PROTOBUF_VERSION 3.6.1
 ENV PROTOBUF_C_VERSION 1.3.1
 ENV POSTGIS_VERSION 3.1.0
@@ -35,7 +35,7 @@ RUN tar -xjf postgresql-${POSTGRES_VERSION}.tar.bz2 && \
     --with-openssl \
     --with-python \
     --prefix=/usr/local && \
-    make -j${CPUS} && make install
+    make world -j${CPUS} && make install-world
 
 RUN tar -xzf  protobuf-cpp-${PROTOBUF_VERSION}.tar.gz && \
     cd protobuf-${PROTOBUF_VERSION} && \
@@ -53,6 +53,7 @@ RUN tar -xzf postgis-${POSTGIS_FULL_VERSION}.tar.gz && \
     ./configure --with-protobufdir=/usr/local --prefix=/usr/local && \
     make -j${CPUS} && make install
 
+# Timescale doesn't support pg12 yet
 # RUN rm -rf /usr/local/lib/libcurl.so.4
 # RUN tar --lzma -xf timescaledb-${TIMESCALE_VERSION}.tar.lzma && \
 #     cd timescaledb && \
