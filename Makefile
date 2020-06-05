@@ -16,6 +16,9 @@ shell:
 		$(REPO):$(TAG) \
 		/bin/bash
 
+pull:
+	docker pull ${DOCKER_REPO}:${TAG}
+
 test:
 	docker run --rm \
 		--name postgres-test-server \
