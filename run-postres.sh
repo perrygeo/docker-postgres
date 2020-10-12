@@ -22,7 +22,7 @@ docker run --rm --name $NAME \
   --volume `pwd`/postgresql.conf:/etc/postgresql/postgresql.conf \
   -e POSTGRES_PASSWORD=password \
   -e POSTGRES_USER=postgres \
-  -e PGDATA=/var/lib/pgsql/data/pgdata11 \
+  -e PGDATA=/var/lib/pgsql/data/pgdata13 \
   -e POSTGRES_INITDB_ARGS="--data-checksums --encoding=UTF8" \
   -e POSTGRES_DB=db \
   -p ${HOST_PORT}:5432 \

@@ -6,11 +6,11 @@ FROM perrygeo/gdal-base:latest as builder
 
 WORKDIR /tmp
 
-ENV POSTGRES_VERSION 12.3
+ENV POSTGRES_VERSION 13.0
 ENV PROTOBUF_VERSION 3.6.1
 ENV PROTOBUF_C_VERSION 1.3.1
 ENV POSTGIS_VERSION 3.1.0
-ENV POSTGIS_FULL_VERSION 3.1.0alpha1
+ENV POSTGIS_FULL_VERSION 3.1.0alpha2
 
 # Waiting on Timescale pg12 compatibility
 # ENV TIMESCALE_VERSION 1.3.0
@@ -26,6 +26,8 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     autoconf automake libreadline-dev zlib1g-dev libxml2-dev llvm-dev clang \
     libjson-c-dev xsltproc docbook-xsl docbook-mathml libssl-dev
+
+ENV CPUS 2
 
 # ./configure --help && exit 1
 RUN tar -xjf postgresql-${POSTGRES_VERSION}.tar.bz2 && \
