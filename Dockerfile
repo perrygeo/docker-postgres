@@ -11,7 +11,7 @@ RUN apt-get install -y --no-install-recommends \
     autoconf automake libreadline-dev zlib1g-dev libxml2-dev llvm-dev clang \
     libjson-c-dev xsltproc docbook-xsl docbook-mathml libssl-dev
 
-ENV POSTGRES_VERSION 13.0
+ENV POSTGRES_VERSION 13.1
 RUN wget -q https://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2
 RUN tar -xjf postgresql-${POSTGRES_VERSION}.tar.bz2 && \
     cd postgresql-${POSTGRES_VERSION} && \
@@ -37,15 +37,21 @@ RUN tar -xzf protobuf-c-${PROTOBUF_C_VERSION}.tar.gz && \
     make -j${CPUS} && make install
 
 ENV POSTGIS_VERSION 3.1.0
-ENV POSTGIS_FULL_VERSION 3.1.0alpha3
+ENV POSTGIS_FULL_VERSION 3.1.0
 RUN wget -q https://download.osgeo.org/postgis/source/postgis-${POSTGIS_FULL_VERSION}.tar.gz
-
-# --with-protobuf-inc=/usr/local/include --with-protobuf-lib=/usr/local/lib
 RUN tar -xzf postgis-${POSTGIS_FULL_VERSION}.tar.gz && \
     cd postgis-${POSTGIS_FULL_VERSION} && \
     ldconfig && \
-    ./configure --with-protobufdir=/usr/local --prefix=/usr/local && \
+    ./configure --with-protobufdir=/usr/local --prefix=/usr/local \
+    --with-protobuf-inc=/usr/local/include --with-protobuf-lib=/usr/local/lib && \
     make -j${CPUS} && make install
+
+ENV H3_VERSION 3.7.0
+RUN wget -q https://github.com/bytesandbrains/h3-pg/archive/v${H3_VERSION}.tar.gz 
+RUN apt-get install -y git
+RUN tar -xzf v${H3_VERSION}.tar.gz && \
+    cd h3-pg-${H3_VERSION} && \
+    make && make install
 
 # Timescale doesn't support pg13 yet
 # ENV TIMESCALE_VERSION 1.3.0
@@ -60,12 +66,19 @@ RUN tar -xzf postgis-${POSTGIS_FULL_VERSION}.tar.gz && \
 # against the system gdal and geos libraries
 RUN pip install rasterstats rasterio[s3] fiona shapely pyproj --no-binary rasterio,fiona,shapely,pyproj
 
+ENV PGROUTING_VERSION 3.1.1
+RUN wget -q https://github.com/pgRouting/pgrouting/releases/download/v${PGROUTING_VERSION}/pgrouting-${PGROUTING_VERSION}.tar.gz
+RUN apt-get -y install --no-install-recommends libboost-graph1.67-dev libboost-graph-parallel1.67-dev
+RUN tar -xzf pgrouting-${PGROUTING_VERSION}.tar.gz && \
+    cd pgrouting-${PGROUTING_VERSION} && \
+    mkdir build && cd build && cmake .. && make -j${CPUS} && make install
+
 # Final
 FROM python:3.8-slim-buster as final
 # Runtime requirements for dev libraries used above
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
-    llvm libssl1.1 libxml2 libjson-c3 libfreexl1 gosu \
+    llvm libssl1.1 libxml2 libjson-c3 libfreexl1 gosu libboost-graph1.67.0 libboost-graph-parallel1.67.0 \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local /usr/local
 RUN ldconfig
