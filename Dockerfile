@@ -6,12 +6,11 @@ FROM perrygeo/gdal-base:latest as builder
 
 WORKDIR /tmp
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     autoconf automake libreadline-dev zlib1g-dev libxml2-dev llvm-dev clang \
     libjson-c-dev xsltproc docbook-xsl docbook-mathml libssl-dev
 
-ENV POSTGRES_VERSION 13.1
+ENV POSTGRES_VERSION 13.2
 RUN wget -q https://ftp.postgresql.org/pub/source/v${POSTGRES_VERSION}/postgresql-${POSTGRES_VERSION}.tar.bz2
 RUN tar -xjf postgresql-${POSTGRES_VERSION}.tar.bz2 && \
     cd postgresql-${POSTGRES_VERSION} && \
@@ -36,8 +35,8 @@ RUN tar -xzf protobuf-c-${PROTOBUF_C_VERSION}.tar.gz && \
     ./configure --prefix=/usr/local && \
     make -j${CPUS} && make install
 
-ENV POSTGIS_VERSION 3.1.0
-ENV POSTGIS_FULL_VERSION 3.1.0
+ENV POSTGIS_VERSION 3.1.1
+ENV POSTGIS_FULL_VERSION 3.1.1
 RUN wget -q https://download.osgeo.org/postgis/source/postgis-${POSTGIS_FULL_VERSION}.tar.gz
 RUN tar -xzf postgis-${POSTGIS_FULL_VERSION}.tar.gz && \
     cd postgis-${POSTGIS_FULL_VERSION} && \
